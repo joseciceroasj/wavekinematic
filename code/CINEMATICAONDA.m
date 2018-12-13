@@ -973,7 +973,7 @@ eta = (H/2)*cos(k*x-w*t);
 zs = 0;
 
 if EXPORT1 == 1  
-    for i= 1:zd
+    for i= 1:zd+1
         Z(i,1) = zs;
         %Wheeler Stretching
         z = (zs - eta)/(1+eta/zd);
@@ -992,7 +992,7 @@ end
 
 zs=0;
 if EXPORT2 == 1 
-    for i= 1:zd
+    for i= 1:zd+1
         Z(i,1) = zs;
         %Wheeler Stretching
         z = (zs - eta)/(1+eta/zd);
@@ -1011,7 +1011,7 @@ end
 zd = d;
 zs=0;
 if EXPORT3 == 1
-    for i= 1:zd
+    for i= 1:zd+1
         Z(i,1) = zs;
         %Wheeler Stretching
         z = (zs - eta)/(1+eta/zd);
@@ -1028,7 +1028,7 @@ end
 zd = d;
 zs=0;
 if EXPORT4 == 1
-    for i= 1:zd
+    for i= 1:zd+1
         Z(i,1) = zs;
         %Wheeler Stretching
         z = (zs - eta)/(1+eta/zd);        
@@ -1112,14 +1112,19 @@ if RB3 == 1 %até d
         zd = d;
 end
 
+%Elevação da onda
+eta = (H/2)*cos(k*x-w*t);
+zs = 0;
+
 %VELOCIDADE E ACELERAÇÃO NA PROFUNDIDADE ZERO
 uvL0 =(((9.81*k*H)/(2*w))*(sinh(k*(0+zd))/cosh(k*zd))*sin(k*(x-c*t)));
 uhL0 = (((9.81*k*H)/(2*w))*(cosh(k*(0+zd))/cosh(k*zd))*cos(k*(x-c*t)));
 AhL0 =(((9.81*k*H)/(2))*(cosh(k*(0+zd))/cosh(k*zd))*sin(k*(x-c*t)));
 AvL0 =(((-9.81*k*H)/(2))*(sinh(k*(0+zd))/cosh(k*zd))*cos(k*(x-c*t)));
 
-for i= 1:zd
-    
+for i= 1:zd+1
+    %Wheeler Stretching
+    z = (zs - eta)/(1+eta/zd);        
     %Calcula a velocidade horizontal 
     uh(i)=(((9.81*k*H)/(2*w))*(cosh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
     %Calcula a velocidade vertical
@@ -1129,15 +1134,20 @@ for i= 1:zd
     %Calcula a aceleração horizontal
     Ah(i)=(((9.81*k*H)/(2))*(cosh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t)));
     
-    z = z - 1; 
+    if(i==1)
+        uvL0 = uv(i);
+        uhL0 = uh(i);
+        AvL0 = Av(i);
+        AhL0 = Ah(i);
+    end
     
     PERC1(i) = 100*(uv(i)/uvL0);
     PERC2(i) = 100*(uh(i)/uhL0);  
     PERC3(i) = 100*(Av(i)/AvL0);
     PERC4(i) = 100*(Ah(i)/AhL0);
     
-    vetori(i)= i;
-    vetori(i)= z;
+    vetori(i)= zs;
+    zs = zs - 1;
     
     
 end
@@ -1161,10 +1171,10 @@ flag2 = 0;
 %axis (inf);
 j = 1;
 if VVertical == 1 
-    plot1(j) = plot(uv,vetori,'Parent',handles.axes1);
+    plot1(j) = plot(uv,vetori,'Parent',handles.axes1,'Color','blue');
     set(plot1(j),'DisplayName','Velocidade Vertical');
     grid (handles.axes1,'on');
-    plot2(j)= plot(PERC1,vetori,'Parent',handles.axes5);
+    plot2(j)= plot(PERC1,vetori,'Parent',handles.axes5,'Color','blue');
     set(plot2(j),'DisplayName',' Percentual Vel. Vertical'); 
     grid (handles.axes5,'on');
     j = j+1;
@@ -1174,10 +1184,10 @@ if VVertical == 1
 end
 
 if VHorizontal == 1
-    plot1(j)= plot(uh,vetori,'Parent',handles.axes1);
+    plot1(j)= plot(uh,vetori,'Parent',handles.axes1, 'Color','red');
     set(plot1(j),'DisplayName','Velocidade Horizontal');
     grid (handles.axes1,'on');
-    plot2(j)=plot(PERC2,vetori,'Parent',handles.axes5);
+    plot2(j)=plot(PERC2,vetori,'Parent',handles.axes5, 'Color','red');
     set(plot2(j),'DisplayName',' Percentual Vel. Horizontal'); 
     grid (handles.axes5,'on');
     j=j+1;
@@ -1189,10 +1199,10 @@ if VHorizontal == 1
 end
 
 if AVertical == 1
-    plot1(j)= plot(Av,vetori,'Parent',handles.axes1);
+    plot1(j)= plot(Av,vetori,'Parent',handles.axes1,'Color','green','LineStyle','--');
     set(plot1(j),'DisplayName','Aceleração Vertical');
     grid (handles.axes1,'on');
-    plot2(j)=plot(PERC3,vetori,'Parent',handles.axes5);
+    plot2(j)=plot(PERC3,vetori,'Parent',handles.axes5, 'Color','green','LineStyle','--');
     set(plot2(j),'DisplayName',' Percentual Acel. Vertical'); 
     grid (handles.axes5,'on');
     j = j+1;
@@ -1206,10 +1216,10 @@ if AVertical == 1
 end
 
 if AHorizontal == 1
-    plot1(j)= plot(Ah,vetori, 'Parent',handles.axes1);
+    plot1(j)= plot(Ah,vetori, 'Parent',handles.axes1,'Color','black','LineStyle','--');
     set(plot1(j),'DisplayName','Aceleração Vertical');
     grid (handles.axes1,'on');
-    plot2(j)=plot(PERC4,vetori,'Parent',handles.axes5);
+    plot2(j)=plot(PERC4,vetori,'Parent',handles.axes5,'Color','black','LineStyle','--');
     set(plot2(j),'DisplayName',' Percentual Acel. Horizontal'); 
     grid (handles.axes5,'on');
     j = j+1;
