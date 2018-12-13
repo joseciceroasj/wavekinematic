@@ -22,7 +22,7 @@ function varargout = CINEMATICAONDA(varargin)
 
 % Edit the above text to modify the response to help CINEMATICAONDA
 
-% Last Modified by GUIDE v2.5 06-Dec-2018 16:35:06
+% Last Modified by GUIDE v2.5 13-Dec-2018 10:18:03
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -534,6 +534,9 @@ cla(handles.axes5,'reset');
 hold(handles.axes1,'on');
 hold(handles.axes5,'on');
 
+flag1 = 0;
+flag2 = 0;
+
 %axis (inf);
 j = 1;
 if VVertical == 1 
@@ -544,6 +547,9 @@ if VVertical == 1
     set(plot2(j),'DisplayName',' Percentual Vel. Vertical'); 
     grid (handles.axes5,'on');
     j = j+1;
+    
+    flag1 = 1;
+    eixox1 = 'Velocidade (m/s)';    
 end
 
 if VHorizontal == 1
@@ -554,6 +560,11 @@ if VHorizontal == 1
     set(plot2(j),'DisplayName',' Percentual Vel. Horizontal'); 
     grid (handles.axes5,'on');
     j=j+1;
+    
+    if (flag1 == 0)
+        eixox1 = 'Velocidade (m/s)';
+        flag1 = 1;
+    end
 end
 
 if AVertical == 1
@@ -564,6 +575,13 @@ if AVertical == 1
     set(plot2(j),'DisplayName',' Percentual Acel. Vertical'); 
     grid (handles.axes5,'on');
     j = j+1;
+    
+    flag2 = 1;
+    if (flag1 == 1)
+        eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
+    else
+        eixox1 = 'Aceleração (m/s^2)';
+    end
 end
 
 if AHorizontal == 1
@@ -574,10 +592,26 @@ if AHorizontal == 1
     set(plot2(j),'DisplayName',' Percentual Acel. Horizontal'); 
     grid (handles.axes5,'on');
     j = j+1;
+    
+    if (flag2 == 0)
+        if (flag1 == 1)
+            eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
+        else
+            eixox1 = 'Aceleração (m/s^2)';
+        end 
+    end
 end
 
 legend1 = legend(handles.axes1,'show');
 legend2 = legend(handles.axes5,'show');
+
+if ((flag1 == 1) || (flag2 == 1))
+    xlabel(handles.axes1,eixox1);
+    ylabel(handles.axes1,'Profundidade (m)');
+    xlabel(handles.axes5,'Percentual relativo (%)');
+    ylabel(handles.axes5,'Profundidade (m)');
+end
+
 
 
 
@@ -686,6 +720,8 @@ cla(handles.axes1,'reset');
 cla(handles.axes5,'reset');
 hold(handles.axes1,'on');
 hold(handles.axes5,'on');
+flag1 = 0;
+flag2 = 0;
 
 %axis (inf);
 j = 1;
@@ -697,6 +733,9 @@ if VVertical == 1
     set(plot2(j),'DisplayName',' Percentual Vel. Vertical'); 
     grid (handles.axes5,'on');
     j = j+1;
+    
+    flag1 = 1;
+    eixox1 = 'Velocidade (m/s)';      
 end
 
 if VHorizontal == 1
@@ -707,6 +746,11 @@ if VHorizontal == 1
     set(plot2(j),'DisplayName',' Percentual Vel. Horizontal'); 
     grid (handles.axes5,'on');    
     j=j+1;
+    
+    if (flag1 == 0)
+        eixox1 = 'Velocidade (m/s)';
+        flag1 = 1;
+    end    
 end
 
 if AVertical == 1
@@ -717,6 +761,13 @@ if AVertical == 1
     set(plot2(j),'DisplayName',' Percentual Acel. Vertical'); 
     grid (handles.axes5,'on');    
     j = j+1;
+    
+    flag2 = 1;
+    if (flag1 == 1)
+        eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
+    else
+        eixox1 = 'Aceleração (m/s^2)';
+    end    
 end
 if AHorizontal == 1
     plot1(j)= plot(Ah,vetori, 'Parent',handles.axes1);
@@ -726,9 +777,25 @@ if AHorizontal == 1
     set(plot2(j),'DisplayName',' Percentual Acel. Horizontal'); 
     grid (handles.axes5,'on');    
     j = j+1;
+    
+    if (flag2 == 0)
+        if (flag1 == 1)
+            eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
+        else
+            eixox1 = 'Aceleração (m/s^2)';
+        end 
+    end    
+    
 end
 legend1 = legend(handles.axes1,'show');
 legend2 = legend(handles.axes5,'show');
+
+if ((flag1 == 1) || (flag2 == 1))
+    xlabel(handles.axes1,eixox1);
+    ylabel(handles.axes1,'Profundidade (m)');
+    xlabel(handles.axes5,'Percentual relativo (%)');
+    ylabel(handles.axes5,'Profundidade (m)');
+end
 % Hint: get(hObject,'Value') returns toggle state of VelHorizontal
 
 
@@ -834,6 +901,8 @@ cla(handles.axes5,'reset');
 hold(handles.axes1,'on');
 hold(handles.axes5,'on');
 
+flag1 = 0;
+flag2 = 0;
 %axis (inf);
 j = 1;
 if VVertical == 1 
@@ -844,6 +913,9 @@ if VVertical == 1
     set(plot2(j),'DisplayName',' Percentual Vel. Vertical');
     grid (handles.axes5,'on');    
     j = j+1;
+    
+    flag1 = 1;
+    eixox1 = 'Velocidade (m/s)'; 
 end
 
 if VHorizontal == 1
@@ -854,6 +926,11 @@ if VHorizontal == 1
     set(plot2(j),'DisplayName',' Percentual Vel. Horizontal'); 
     grid (handles.axes5,'on');    
     j=j+1;
+    
+    if (flag1 == 0)
+        eixox1 = 'Velocidade (m/s)';
+        flag1 = 1;
+    end    
 end
 
 if AVertical == 1
@@ -864,6 +941,13 @@ if AVertical == 1
     set(plot2(j),'DisplayName',' Percentual Acel. Vertical'); 
     grid (handles.axes5,'on');    
     j = j+1;
+    
+    flag2 = 1;
+    if (flag1 == 1)
+        eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
+    else
+        eixox1 = 'Aceleração (m/s^2)';
+    end    
 end
 if AHorizontal == 1
     plot1(j)= plot(Ah,vetori, 'Parent',handles.axes1);
@@ -873,9 +957,23 @@ if AHorizontal == 1
     set(plot2(j),'DisplayName',' Percentual Acel. Horizontal'); 
     grid (handles.axes5,'on');    
     j = j+1;
+    
+    if (flag2 == 0)
+        if (flag1 == 1)
+            eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
+        else
+            eixox1 = 'Aceleração (m/s^2)';
+        end 
+    end     
 end
 legend1 = legend(handles.axes1,'show');
 legend2 = legend(handles.axes5,'show');
+if ((flag1 == 1) || (flag2 == 1))
+    xlabel(handles.axes1,eixox1);
+    ylabel(handles.axes1,'Profundidade (m)');
+    xlabel(handles.axes5,'Percentual relativo (%)');
+    ylabel(handles.axes5,'Profundidade (m)');
+end
 
 % pegar = get(handles.uibuttongroup4,'SelectObject')
 
@@ -984,7 +1082,8 @@ cla(handles.axes1,'reset');
 cla(handles.axes5,'reset');
 hold(handles.axes1,'on');
 hold(handles.axes5,'on');
-
+flag1 = 0;
+flag2 = 0;
 
 %axis (inf);
 j = 1;
@@ -996,6 +1095,9 @@ if VVertical == 1
     set(plot2(j),'DisplayName',' Percentual Vel. Vertical');
     grid (handles.axes5,'on');    
     j = j+1;
+    
+    flag1 = 1;
+    eixox1 = 'Velocidade (m/s)';     
 end
 %hold on
 if VHorizontal == 1
@@ -1006,6 +1108,11 @@ if VHorizontal == 1
     set(plot2(j),'DisplayName',' Percentual Vel. Horizontal'); 
     grid (handles.axes5,'on');    
     j=j+1;
+    
+    if (flag1 == 0)
+        eixox1 = 'Velocidade (m/s)';
+        flag1 = 1;
+    end     
 end
 
 if AVertical == 1
@@ -1016,6 +1123,13 @@ if AVertical == 1
     set(plot2(j),'DisplayName',' Percentual Acel. Vertical'); 
     grid (handles.axes5,'on');
     j = j+1;
+    
+    flag2 = 1;
+    if (flag1 == 1)
+        eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
+    else
+        eixox1 = 'Aceleração (m/s^2)';
+    end     
 end
 
 if AHorizontal == 1
@@ -1026,10 +1140,24 @@ if AHorizontal == 1
     set(plot2(j),'DisplayName',' Percentual Acel. Horizontal');
     grid (handles.axes5,'on');    
     j = j+1;
+    
+    if (flag2 == 0)
+        if (flag1 == 1)
+            eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
+        else
+            eixox1 = 'Aceleração (m/s^2)';
+        end 
+    end     
 end
 
 legend1 = legend(handles.axes1,'show');
 legend2 = legend(handles.axes5,'show');
+if ((flag1 == 1) || (flag2 == 1))
+    xlabel(handles.axes1,eixox1);
+    ylabel(handles.axes1,'Profundidade (m)');
+    xlabel(handles.axes5,'Percentual relativo (%)');
+    ylabel(handles.axes5,'Profundidade (m)');
+end
 
 % pegar = get(handles.uibuttongroup4,'SelectObject')
 
@@ -1361,19 +1489,24 @@ cla(handles.axes1,'reset');
 cla(handles.axes5,'reset');
 hold(handles.axes1,'on');
 hold(handles.axes5,'on');
+flag1 = 0;
+flag2 = 0;
 
 %axis (inf);
 j = 1;
 if VVertical == 1 
-    plot1(j) = plot(uv,vetori,'Parent',handles.axes1);
+    plot1(j) = plot(uv,vetori,'Parent',handles.axes1 );
     set(plot1(j),'DisplayName','Velocidade Vertical');
     grid (handles.axes1,'on');    
     plot2(j)= plot(PERC1,vetori,'Parent',handles.axes5);
     set(plot2(j),'DisplayName',' Percentual Vel. Vertical');
     grid (handles.axes5,'on');    
     j = j+1;
+    
+    flag1 = 1;
+    eixox1 = 'Velocidade (m/s)';     
 end
-
+%hold on
 if VHorizontal == 1
     plot1(j)= plot(uh,vetori,'Parent',handles.axes1);
     set(plot1(j),'DisplayName','Velocidade Horizontal');
@@ -1382,6 +1515,11 @@ if VHorizontal == 1
     set(plot2(j),'DisplayName',' Percentual Vel. Horizontal'); 
     grid (handles.axes5,'on');    
     j=j+1;
+    
+    if (flag1 == 0)
+        eixox1 = 'Velocidade (m/s)';
+        flag1 = 1;
+    end     
 end
 
 if AVertical == 1
@@ -1390,20 +1528,43 @@ if AVertical == 1
     grid (handles.axes1,'on');    
     plot2(j)=plot(PERC3,vetori,'Parent',handles.axes5);
     set(plot2(j),'DisplayName',' Percentual Acel. Vertical'); 
-    grid (handles.axes5,'on');    
+    grid (handles.axes5,'on');
     j = j+1;
+    
+    flag2 = 1;
+    if (flag1 == 1)
+        eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
+    else
+        eixox1 = 'Aceleração (m/s^2)';
+    end     
 end
+
 if AHorizontal == 1
     plot1(j)= plot(Ah,vetori, 'Parent',handles.axes1);
     set(plot1(j),'DisplayName','Aceleração Vertical');
     grid (handles.axes1,'on');    
     plot2(j)=plot(PERC4,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Acel. Horizontal'); 
+    set(plot2(j),'DisplayName',' Percentual Acel. Horizontal');
     grid (handles.axes5,'on');    
     j = j+1;
+    
+    if (flag2 == 0)
+        if (flag1 == 1)
+            eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
+        else
+            eixox1 = 'Aceleração (m/s^2)';
+        end 
+    end     
 end
+
 legend1 = legend(handles.axes1,'show');
 legend2 = legend(handles.axes5,'show');
+if ((flag1 == 1) || (flag2 == 1))
+    xlabel(handles.axes1,eixox1);
+    ylabel(handles.axes1,'Profundidade (m)');
+    xlabel(handles.axes5,'Percentual relativo (%)');
+    ylabel(handles.axes5,'Profundidade (m)');
+end
 
 % pegar = get(handles.uibuttongroup4,'SelectObject')
 
@@ -1788,19 +1949,24 @@ cla(handles.axes1,'reset');
 cla(handles.axes5,'reset');
 hold(handles.axes1,'on');
 hold(handles.axes5,'on');
+flag1 = 0;
+flag2 = 0;
 
 %axis (inf);
 j = 1;
 if VVertical == 1 
-    plot1(j) = plot(uv,vetori,'Parent',handles.axes1);
+    plot1(j) = plot(uv,vetori,'Parent',handles.axes1 );
     set(plot1(j),'DisplayName','Velocidade Vertical');
     grid (handles.axes1,'on');    
     plot2(j)= plot(PERC1,vetori,'Parent',handles.axes5);
     set(plot2(j),'DisplayName',' Percentual Vel. Vertical');
     grid (handles.axes5,'on');    
     j = j+1;
+    
+    flag1 = 1;
+    eixox1 = 'Velocidade (m/s)';     
 end
-
+%hold on
 if VHorizontal == 1
     plot1(j)= plot(uh,vetori,'Parent',handles.axes1);
     set(plot1(j),'DisplayName','Velocidade Horizontal');
@@ -1809,6 +1975,11 @@ if VHorizontal == 1
     set(plot2(j),'DisplayName',' Percentual Vel. Horizontal'); 
     grid (handles.axes5,'on');    
     j=j+1;
+    
+    if (flag1 == 0)
+        eixox1 = 'Velocidade (m/s)';
+        flag1 = 1;
+    end     
 end
 
 if AVertical == 1
@@ -1817,21 +1988,43 @@ if AVertical == 1
     grid (handles.axes1,'on');    
     plot2(j)=plot(PERC3,vetori,'Parent',handles.axes5);
     set(plot2(j),'DisplayName',' Percentual Acel. Vertical'); 
-    grid (handles.axes5,'on');    
+    grid (handles.axes5,'on');
     j = j+1;
+    
+    flag2 = 1;
+    if (flag1 == 1)
+        eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
+    else
+        eixox1 = 'Aceleração (m/s^2)';
+    end     
 end
+
 if AHorizontal == 1
     plot1(j)= plot(Ah,vetori, 'Parent',handles.axes1);
     set(plot1(j),'DisplayName','Aceleração Vertical');
     grid (handles.axes1,'on');    
     plot2(j)=plot(PERC4,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Acel. Horizontal'); 
+    set(plot2(j),'DisplayName',' Percentual Acel. Horizontal');
     grid (handles.axes5,'on');    
     j = j+1;
+    
+    if (flag2 == 0)
+        if (flag1 == 1)
+            eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
+        else
+            eixox1 = 'Aceleração (m/s^2)';
+        end 
+    end     
 end
 
 legend1 = legend(handles.axes1,'show');
 legend2 = legend(handles.axes5,'show');
+if ((flag1 == 1) || (flag2 == 1))
+    xlabel(handles.axes1,eixox1);
+    ylabel(handles.axes1,'Profundidade (m)');
+    xlabel(handles.axes5,'Percentual relativo (%)');
+    ylabel(handles.axes5,'Profundidade (m)');
+end
 
 % pegar = get(handles.uibuttongroup4,'SelectObject')
 % Hint: get(hObject,'Value') returns toggle state of radiobutton11
@@ -1927,19 +2120,24 @@ cla(handles.axes1,'reset');
 cla(handles.axes5,'reset');
 hold(handles.axes1,'on');
 hold(handles.axes5,'on');
+flag1 = 0;
+flag2 = 0;
 
 %axis (inf);
 j = 1;
 if VVertical == 1 
-    plot1(j) = plot(uv,vetori,'Parent',handles.axes1);
+    plot1(j) = plot(uv,vetori,'Parent',handles.axes1 );
     set(plot1(j),'DisplayName','Velocidade Vertical');
     grid (handles.axes1,'on');    
     plot2(j)= plot(PERC1,vetori,'Parent',handles.axes5);
     set(plot2(j),'DisplayName',' Percentual Vel. Vertical');
     grid (handles.axes5,'on');    
     j = j+1;
+    
+    flag1 = 1;
+    eixox1 = 'Velocidade (m/s)';     
 end
-
+%hold on
 if VHorizontal == 1
     plot1(j)= plot(uh,vetori,'Parent',handles.axes1);
     set(plot1(j),'DisplayName','Velocidade Horizontal');
@@ -1948,6 +2146,11 @@ if VHorizontal == 1
     set(plot2(j),'DisplayName',' Percentual Vel. Horizontal'); 
     grid (handles.axes5,'on');    
     j=j+1;
+    
+    if (flag1 == 0)
+        eixox1 = 'Velocidade (m/s)';
+        flag1 = 1;
+    end     
 end
 
 if AVertical == 1
@@ -1956,21 +2159,43 @@ if AVertical == 1
     grid (handles.axes1,'on');    
     plot2(j)=plot(PERC3,vetori,'Parent',handles.axes5);
     set(plot2(j),'DisplayName',' Percentual Acel. Vertical'); 
-    grid (handles.axes5,'on');    
+    grid (handles.axes5,'on');
     j = j+1;
+    
+    flag2 = 1;
+    if (flag1 == 1)
+        eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
+    else
+        eixox1 = 'Aceleração (m/s^2)';
+    end     
 end
+
 if AHorizontal == 1
     plot1(j)= plot(Ah,vetori, 'Parent',handles.axes1);
     set(plot1(j),'DisplayName','Aceleração Vertical');
     grid (handles.axes1,'on');    
     plot2(j)=plot(PERC4,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Acel. Horizontal'); 
+    set(plot2(j),'DisplayName',' Percentual Acel. Horizontal');
     grid (handles.axes5,'on');    
     j = j+1;
+    
+    if (flag2 == 0)
+        if (flag1 == 1)
+            eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
+        else
+            eixox1 = 'Aceleração (m/s^2)';
+        end 
+    end     
 end
 
 legend1 = legend(handles.axes1,'show');
 legend2 = legend(handles.axes5,'show');
+if ((flag1 == 1) || (flag2 == 1))
+    xlabel(handles.axes1,eixox1);
+    ylabel(handles.axes1,'Profundidade (m)');
+    xlabel(handles.axes5,'Percentual relativo (%)');
+    ylabel(handles.axes5,'Profundidade (m)');
+end
 
 % pegar = get(handles.uibuttongroup4,'SelectObject')
 
@@ -2000,72 +2225,103 @@ k = (2*pi/L);
 w = (2*pi/T);
 c = w/k;
 zd = d;
-z=0;
 
 %CHECK BOX - EXPORTAR DADOS
 EXPORT1 = get(handles.VelVertical,'Value');
 EXPORT2 = get(handles.VelHorizontal,'Value');
 EXPORT3 = get(handles.AcelVertical,'Value');
 EXPORT4 = get(handles.AcelHorizontal,'Value');
+
+%Elevação da onda
+eta = (H/2)*cos(k*x-w*t);
+zs = 0;
+
 if EXPORT1 == 1  
-for i= 1:zd
-    Z(i,1) = z;
-    %Calcula a velocidade vertical
-    uv(i)=(((9.81*k*H)/(2*w))*(sinh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t))); 
-    z = z - 1; 
-    
-end
-UV = uv';
-ZUV=[Z,UV];
- 
-save('dados_velocidadevertical.txt','ZUV','-ascii')
- 
-end
+    for i= 1:zd
+        Z(i,1) = zs;
+        %Wheeler Stretching
+        z = (zs - eta)/(1+eta/zd);
+        %Calcula a velocidade vertical
+        uv(i)=(((9.81*k*H)/(2*w))*(sinh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t))); 
+        
+        zs = zs - 1; 
 
-qd = d;
-z1=0;
-if EXPORT2 == 1 
-    for i= 1:qd
-    Z(i,1) = z1;
-    %Calcula a velocidade horizontal 
-    uh(i)=(((9.81*k*H)/(2*w))*(cosh(k*(z1+qd))/cosh(k*qd))*cos(k*(x-c*t)));
-    z1 = z1 - 1; 
-    
-end
- 
-UH = uh';
-ZUH=[Z,UH];
- 
-save('dados_velocidadehorizontal.txt','ZUH','-ascii')
-end
-
-wd = d;
-z2=0;
-if EXPORT3 == 1 
-    for i= 1:wd
-    Z(i,1) = z2;
-    %Calcula a aceleração vertical 
-    Av(i)=(((-9.81*k*H)/(2))*(sinh(k*(z2+wd))/cosh(k*wd))*cos(k*(x-c*t)));
-    z2 = z2 - 1; 
     end
-AV = Av';
-ZAV=[Z,AV];
- 
-save('dados_aceleracaovertical.txt','ZAV','-ascii')
+    UV = uv';
+    ZUV=[Z,UV];
+
+    save('dados_velocidadevertical.txt','ZUV','-ascii')
 end
 
-td = d;
-z3=0;
-if EXPORT4 == 1 
-    for i= 1:td
-    Z(i,1) = z3;
-    %Calcula a aceleração horizontal
-    Ah(i)=(((9.81*k*H)/(2))*(cosh(k*(z3+td))/cosh(k*td))*sin(k*(x-c*t)));
-    z3 = z3 - 1; 
+zd = d;
+zs=0;
+if EXPORT2 == 1 
+    for i= 1:zd
+        Z(i,1) = zs;
+        %Wheeler Stretching
+        z = (zs - eta)/(1+eta/zd);
+        %Calcula a velocidade horizontal 
+        uh(i)=(((9.81*k*H)/(2*w))*(cosh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
+        %uh(i) = (cosh(k*(z+zd))/sinh(k*zd))*(H/2)*w*cos(w*t - k*x); 
+        zs = zs - 1; 
+    end
+
+    UH = uh';
+    ZUH=[Z,UH];
+
+    save('dados_velocidadehorizontal.txt','ZUH','-ascii')
+end
+
+zd = d;
+zs=0;
+if EXPORT3 == 1
+    for i= 1:zd
+        Z(i,1) = zs;
+        %Wheeler Stretching
+        z = (zs - eta)/(1+eta/zd);
+        %Calcula a aceleração vertical
+        Av(i)=(((-9.81*k*H)/(2))*(sinh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
+        zs = zs - 1;
+    end
+    AV = Av';
+    ZAV=[Z,AV];
     
+    save('dados_aceleracaovertical.txt','ZAV','-ascii')
 end
-AH = Ah';
-ZAH=[Z,AH];
- 
-save('dados_aceleracaohorizontal.txt','ZAH','-ascii')
+
+zd = d;
+zs=0;
+if EXPORT4 == 1
+    for i= 1:zd
+        Z(i,1) = zs;
+        %Wheeler Stretching
+        z = (zs - eta)/(1+eta/zd);        
+        %Calcula a aceleração horizontal
+        Ah(i)=(((9.81*k*H)/(2))*(cosh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t)));
+        zs = zs - 1;
+        
+    end
+    AH = Ah';
+    ZAH=[Z,AH];
+    
+    save('dados_aceleracaohorizontal.txt','ZAH','-ascii')
 end
+
+
+% --- Executes during object creation, after setting all properties.
+function VelHorizontal_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to VelHorizontal (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% --- Executes during object creation, after setting all properties.
+function VelVertical_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to VelHorizontal (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% --- Executes during object creation, after setting all properties.
+function text39_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to VelHorizontal (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
