@@ -195,86 +195,7 @@ PVv = 100*(uvL2/uvL0);
 PAv = 100*(AvL2/AvL0);
 PAh = 100*(AhL2/AhL0);
 
-
-
-%GRAFICO PERCENTUAL
-% j=1;
-% z =0;  
-%     for i= 1:L/2
-%         uh(i)=(((9.81*k*H)/(2*w))*(cosh(k*(z+d))/cosh(k*d))*cos(k*(x-c*t)));
-%         uhL0 = (((9.81*k*H)/(2*w))*(cosh(k*(0+d))/cosh(k*d))*cos(k*(x-c*t)));
-%         PERC(i) = 100* (uh(i)/uhL0);
-%              
-%         z = z - 1; 
-%         X(i)= i;
-%         X(i)= z;
-%     end
-%     
-%     plot1(j)= plot(X,PERC,'Parent',handles.axes5);
-%     set(plot1(j),'DisplayName','Gráfico Percentual 1');
-%     grid on
-%     j=j+1;
-%     hold on
-%    legend1 = legend(handles.axes5,'show');
-%    
-% %      
-% %    
-% %    for i= 1:L/2
-% %        uv(i)=(((9.81*k*H)/(2*w))*(sinh(k*(z+d))/cosh(k*d))*sin(k*(x-c*t)));
-% %        uvL0 =(((9.81*k*H)/(2*w))*(sinh(k*(0+d))/cosh(k*d))*sin(k*(x-c*t)));
-% %        PERC2(i) = 100*(uv(i)/uvL0);
-% %        
-% %        z = z - 1; 
-% %         X(i)= i;
-% %         X(i)= z;
-% %    end
-% %        plot2(j)= plot(X,PERC2,'Parent',handles.axes5);
-% %     set(plot2(j),'DisplayName','Gráfico Percentual 2');
-% %     grid on
-% %     j=j+1;
-% %     hold on
-% %    legend2 = legend(handles.axes5,'show');
-% %    
-% %    for i= 1:L/2
-% %       Av(i)=(((-9.81*k*H)/(2))*(sinh(k*(z+d))/cosh(k*d))*cos(k*(x-c*t)));
-% %       AvL0 =(((9.81*k*H)/(2))*(sinh(k*(0+d))/cosh(k*d))*cos(k*(x-c*t)));
-% %       PERC3(i) = 100*(Av(i)/AvL0);
-% %        
-% %        z = z - 1; 
-% %         X(i)= i;
-% %         X(i)= z;
-% %    end
-% %     plot3(j)= plot(X,PERC2,'Parent',handles.axes5);
-% %     set(plot3(j),'DisplayName','Gráfico Percentual 2');
-% %     grid on
-% %     j=j+1;
-% %     hold on
-% %    legend3 = legend(handles.axes5,'show');
-% %  
-% %    
-%      for i= 1:L/2
-%         Ah(i)=(((9.81*k*H)/(2))*(cosh(k*(z+d))/cosh(k*d))*sin(k*(x-c*t)));
-%         AhL0 =(((9.81*k*H)/(2))*(cosh(k*(0+d))/cosh(k*d))*sin(k*(x-c*t)));
-%         PERC4(i) = 100*(Ah(i)/AhL0);  
-%         z = z - 1; 
-%         Y(i)= i;
-%         Y(i)= z;
-%      end
-%         
-%     plot4(a)= plot(Y,PERC4,'Parent',handles.axes5);
-%     set(plot4(a),'DisplayName','Gráfico Percentual 4');
-%     grid on
-%     a=a+1;
-%     hold on
-%     legend4 = legend(handles.axes5,'show');
-   
-
 %MOSTRANDO O PERCENTUAL NAS CAIXAS
-%set(handles.text39, 'String', num2str(PVh));
-%set(handles.text40, 'String', num2str(PVv));
-%set(handles.text41, 'String', num2str(PAv));
-%set(handles.text42, 'String', num2str(PAh));
-
 set(handles.text39, 'String', sprintf('%.2f',PVh));
 set(handles.text40, 'String', sprintf('%.2f',PVv));
 set(handles.text41, 'String', sprintf('%.2f',PAv));
@@ -306,6 +227,8 @@ set(handles.text40, 'String', '-');
 set(handles.text41, 'String', '-');
 set(handles.text42, 'String', '-');
 end
+
+graficos(handles);
 
 
 function x_Callback(hObject, eventdata, handles)
@@ -436,184 +359,7 @@ function VelVertical_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 %Recebendo dados do usuário
 
-H = str2double(get(handles.H,'String'));
-T = str2double(get(handles.T,'String'));
-d = str2double(get(handles.d,'String'));
-x = str2double(get(handles.x,'String'));
-t = str2double(get(handles.tempo,'String'));
-
-%H=1; T=10; d=50; x=1; t=0;
-
-%Cálculo de comprimento de onda
-g =9.81;
-W = (4*pi^2*d)/(g*(T^2));
-f =1 + (0.666*W + 0.445*W -0.105*W + 0.272*W);
-L = (T*sqrt(g*d)*sqrt(f/(1+W*f)));
-k = (2*pi/L);
-w = (2*pi/T);
-c = w/k;
-zd = d;
-
-%Mostrando nas caixas
-% set(handles.cxL, 'String', num2str(L));
-% set(handles.text10, 'String', num2str(k));
-% set(handles.text11, 'String', num2str(c));
-% set(handles.text12, 'String', num2str(w));
-
-set(handles.cxL, 'String', sprintf('%.2f',L));
-set(handles.text10, 'String', sprintf('%.2f',k));
-set(handles.text11, 'String', sprintf('%.2f',c));
-set(handles.text12, 'String', sprintf('%.2f',w));
-
-%RADIO BUTTON
-z =0;
-RB1 = get(handles.radiobutton10,'Value');
-RB2 = get(handles.radiobutton11,'Value');
-RB3 = get(handles.radiobutton12,'Value');
-if RB1 == 1 %até L/2
-    if(L/2>d)
-        zd = d;
-        
-    else
-        zd = L/2;
-    end 
-end
-if RB2 == 1
-    if(L>d)
-        zd = d;
-        
-    else
-        zd = L;
-    end 
-end
-if RB3 == 1
-        zd = d;
-end
-
-
-%VELOCIDADE E ACELERAÇÃO NA PROFUNDIDADE ZERO
-uvL0 =(((9.81*k*H)/(2*w))*(sinh(k*(0+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-uhL0 = (((9.81*k*H)/(2*w))*(cosh(k*(0+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-AhL0 =(((9.81*k*H)/(2))*(cosh(k*(0+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-AvL0 =(((-9.81*k*H)/(2))*(sinh(k*(0+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-
-for i= 1:zd
-    
-    %Calcula a velocidade horizontal 
-    uh(i)=(((9.81*k*H)/(2*w))*(cosh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-    %Calcula a velocidade vertical
-    uv(i)=(((9.81*k*H)/(2*w))*(sinh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-    %Calcula a aceleração vertical 
-    Av(i)=(((-9.81*k*H)/(2))*(sinh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-    %Calcula a aceleração horizontal
-    Ah(i)=(((9.81*k*H)/(2))*(cosh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-    
-    z = z - 1; 
-    
-    PERC1(i) = 100*(uv(i)/uvL0);
-    PERC2(i) = 100*(uh(i)/uhL0);  
-    PERC3(i) = 100*(Av(i)/AvL0);
-    PERC4(i) = 100*(Ah(i)/AhL0);
-    
-    vetori(i)= i;
-    vetori(i)= z;
-    
-    
-end
-
-
-%Obtendo dados do usuário - CheckBox e RadioButton
-VVertical = get(handles.VelVertical,'Value');
-VHorizontal = get(handles.VelHorizontal,'Value');
-AVertical = get(handles.AcelVertical,'Value');
-AHorizontal = get(handles.AcelHorizontal,'Value');
-
-%GRAFICO PERCENTUAL 
-cla(handles.axes1,'reset');
-cla(handles.axes5,'reset');
-hold(handles.axes1,'on');
-hold(handles.axes5,'on');
-
-flag1 = 0;
-flag2 = 0;
-
-%axis (inf);
-j = 1;
-if VVertical == 1 
-    plot1(j) = plot(uv,vetori,'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Velocidade Vertical');
-    grid (handles.axes1,'on');
-    plot2(j)= plot(PERC1,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Vel. Vertical'); 
-    grid (handles.axes5,'on');
-    j = j+1;
-    
-    flag1 = 1;
-    eixox1 = 'Velocidade (m/s)';    
-end
-
-if VHorizontal == 1
-    plot1(j)= plot(uh,vetori,'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Velocidade Horizontal');
-    grid (handles.axes1,'on');
-    plot2(j)=plot(PERC2,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Vel. Horizontal'); 
-    grid (handles.axes5,'on');
-    j=j+1;
-    
-    if (flag1 == 0)
-        eixox1 = 'Velocidade (m/s)';
-        flag1 = 1;
-    end
-end
-
-if AVertical == 1
-    plot1(j)= plot(Av,vetori,'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Aceleração Vertical');
-    grid (handles.axes1,'on');
-    plot2(j)=plot(PERC3,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Acel. Vertical'); 
-    grid (handles.axes5,'on');
-    j = j+1;
-    
-    flag2 = 1;
-    if (flag1 == 1)
-        eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
-    else
-        eixox1 = 'Aceleração (m/s^2)';
-    end
-end
-
-if AHorizontal == 1
-    plot1(j)= plot(Ah,vetori, 'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Aceleração Vertical');
-    grid (handles.axes1,'on');
-    plot2(j)=plot(PERC4,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Acel. Horizontal'); 
-    grid (handles.axes5,'on');
-    j = j+1;
-    
-    if (flag2 == 0)
-        if (flag1 == 1)
-            eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
-        else
-            eixox1 = 'Aceleração (m/s^2)';
-        end 
-    end
-end
-
-legend1 = legend(handles.axes1,'show');
-legend2 = legend(handles.axes5,'show');
-
-if ((flag1 == 1) || (flag2 == 1))
-    xlabel(handles.axes1,eixox1);
-    ylabel(handles.axes1,'Profundidade (m)');
-    xlabel(handles.axes5,'Percentual relativo (%)');
-    ylabel(handles.axes5,'Profundidade (m)');
-end
-
-
-
+graficos(handles);
 
 % Hint: get(hObject,'Value') returns toggle state of VelVertical
 
@@ -623,180 +369,9 @@ function VelHorizontal_Callback(hObject, eventdata, handles)
 % hObject    handle to VelHorizontal (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-%Recebendo dados do usuário
 
-H = str2double(get(handles.H,'String'));
-T = str2double(get(handles.T,'String'));
-d = str2double(get(handles.d,'String'));
-x = str2double(get(handles.x,'String'));
-t = str2double(get(handles.tempo,'String'));
+graficos(handles);
 
-%H=1; T=10; d=50; x=1; t=0;
-
-%Cálculo de comprimento de onda
-g =9.81;
-W = (4*pi^2*d)/(g*(T^2));
-f =1 + (0.666*W + 0.445*W -0.105*W + 0.272*W);
-L = (T*sqrt(g*d)*sqrt(f/(1+W*f)));
-k = (2*pi/L);
-w = (2*pi/T);
-c = w/k;
-zd = d;
-
-
-%Mostrando nas caixas
-% set(handles.cxL, 'String', num2str(L));
-% set(handles.text10, 'String', num2str(k));
-% set(handles.text11, 'String', num2str(c));
-% set(handles.text12, 'String', num2str(w));
-
-set(handles.cxL, 'String', sprintf('%.2f',L));
-set(handles.text10, 'String', sprintf('%.2f',k));
-set(handles.text11, 'String', sprintf('%.2f',c));
-set(handles.text12, 'String', sprintf('%.2f',w));
-
-%RADIO BUTTON
-z =0;
-RB1 = get(handles.radiobutton10,'Value');
-RB2 = get(handles.radiobutton11,'Value');
-RB3 = get(handles.radiobutton12,'Value');
-if RB1 == 1 %até L/2
-    if(L/2>d)
-        zd = d;
-        
-    else
-        zd = L/2;
-    end 
-end
-if RB2 == 1
-    if(L>d)
-        zd = d;
-        
-    else
-        zd = L;
-    end 
-end
-if RB3 == 1
-        zd = d;
-end
-
-%VELOCIDADE E ACELERAÇÃO NA PROFUNDIDADE ZERO
-uvL0 =(((9.81*k*H)/(2*w))*(sinh(k*(0+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-uhL0 = (((9.81*k*H)/(2*w))*(cosh(k*(0+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-AhL0 =(((9.81*k*H)/(2))*(cosh(k*(0+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-AvL0 =(((-9.81*k*H)/(2))*(sinh(k*(0+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-
-for i= 1:zd
-    %Calcula a velocidade horizontal 
-    uh(i)=(((9.81*k*H)/(2*w))*(cosh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-    %Calcula a velocidade vertical
-    uv(i)=(((9.81*k*H)/(2*w))*(sinh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-    %Calcula a aceleração vertical 
-    Av(i)=(((-9.81*k*H)/(2))*(sinh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-    %Calcula a aceleração horizontal
-    Ah(i)=(((9.81*k*H)/(2))*(cosh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-    
-    z = z - 1; 
-    
-    PERC1(i) = 100*(uv(i)/uvL0);
-    PERC2(i) = 100*(uh(i)/uhL0);  
-    PERC3(i) = 100*(Av(i)/AvL0);
-    PERC4(i) = 100*(Ah(i)/AhL0);
-    
-    vetori(i)= i;
-    vetori(i)= z;
-    
-end
-
-
-%Obtendo dados do usuário - CheckBox e RadioButton
-VVertical = get(handles.VelVertical,'Value');
-VHorizontal = get(handles.VelHorizontal,'Value');
-AVertical = get(handles.AcelVertical,'Value');
-AHorizontal = get(handles.AcelHorizontal,'Value');
-
-
-cla(handles.axes1,'reset');
-cla(handles.axes5,'reset');
-hold(handles.axes1,'on');
-hold(handles.axes5,'on');
-flag1 = 0;
-flag2 = 0;
-
-%axis (inf);
-j = 1;
-if VVertical == 1 
-    plot1(j) = plot(uv,vetori,'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Velocidade Vertical');
-    grid (handles.axes1,'on');
-    plot2(j)= plot(PERC1,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Vel. Vertical'); 
-    grid (handles.axes5,'on');
-    j = j+1;
-    
-    flag1 = 1;
-    eixox1 = 'Velocidade (m/s)';      
-end
-
-if VHorizontal == 1
-    plot1(j)= plot(uh,vetori,'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Velocidade Horizontal');
-    grid (handles.axes1,'on');    
-    plot2(j)=plot(PERC2,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Vel. Horizontal'); 
-    grid (handles.axes5,'on');    
-    j=j+1;
-    
-    if (flag1 == 0)
-        eixox1 = 'Velocidade (m/s)';
-        flag1 = 1;
-    end    
-end
-
-if AVertical == 1
-    plot1(j)= plot(Av,vetori,'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Aceleração Vertical');
-    grid (handles.axes1,'on');    
-    plot2(j)=plot(PERC3,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Acel. Vertical'); 
-    grid (handles.axes5,'on');    
-    j = j+1;
-    
-    flag2 = 1;
-    if (flag1 == 1)
-        eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
-    else
-        eixox1 = 'Aceleração (m/s^2)';
-    end    
-end
-if AHorizontal == 1
-    plot1(j)= plot(Ah,vetori, 'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Aceleração Vertical');
-    grid (handles.axes1,'on');    
-    plot2(j)=plot(PERC4,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Acel. Horizontal'); 
-    grid (handles.axes5,'on');    
-    j = j+1;
-    
-    if (flag2 == 0)
-        if (flag1 == 1)
-            eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
-        else
-            eixox1 = 'Aceleração (m/s^2)';
-        end 
-    end    
-    
-end
-legend1 = legend(handles.axes1,'show');
-legend2 = legend(handles.axes5,'show');
-
-if ((flag1 == 1) || (flag2 == 1))
-    xlabel(handles.axes1,eixox1);
-    ylabel(handles.axes1,'Profundidade (m)');
-    xlabel(handles.axes5,'Percentual relativo (%)');
-    ylabel(handles.axes5,'Profundidade (m)');
-end
-% Hint: get(hObject,'Value') returns toggle state of VelHorizontal
 
 
 
@@ -805,179 +380,8 @@ function AcelVertical_Callback(hObject, eventdata, handles)
 % hObject    handle to AcelVertical (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-%Recebendo dados do usuário
 
-H = str2double(get(handles.H,'String'));
-T = str2double(get(handles.T,'String'));
-d = str2double(get(handles.d,'String'));
-x = str2double(get(handles.x,'String'));
-t = str2double(get(handles.tempo,'String'));
-
-%H=1; T=10; d=50; x=1; t=0;
-
-%Cálculo de comprimento de onda
-g =9.81;
-W = (4*pi^2*d)/(g*(T^2));
-f =1 + (0.666*W + 0.445*W -0.105*W + 0.272*W);
-L = (T*sqrt(g*d)*sqrt(f/(1+W*f)));
-k = (2*pi/L);
-w = (2*pi/T);
-c = w/k;
-zd = d;
-
-%Mostrando nas caixas
-% set(handles.cxL, 'String', num2str(L));
-% set(handles.text10, 'String', num2str(k));
-% set(handles.text11, 'String', num2str(c));
-% set(handles.text12, 'String', num2str(w));
-
-set(handles.cxL, 'String', sprintf('%.2f',L));
-set(handles.text10, 'String', sprintf('%.2f',k));
-set(handles.text11, 'String', sprintf('%.2f',c));
-set(handles.text12, 'String', sprintf('%.2f',w));
-
-%RADIO BUTTON
-z =0;
-RB1 = get(handles.radiobutton10,'Value');
-RB2 = get(handles.radiobutton11,'Value');
-RB3 = get(handles.radiobutton12,'Value');
-if RB1 == 1 %até L/2
-    if(L/2>d)
-        zd = d;
-        
-    else
-        zd = L/2;
-    end 
-end
-if RB2 == 1
-    if(L>d)
-        zd = d;
-        
-    else
-        zd = L;
-    end 
-end
-if RB3 == 1
-        zd = d;
-end
-
-%VELOCIDADE E ACELERAÇÃO NA PROFUNDIDADE ZERO
-uvL0 =(((9.81*k*H)/(2*w))*(sinh(k*(0+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-uhL0 = (((9.81*k*H)/(2*w))*(cosh(k*(0+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-AhL0 =(((9.81*k*H)/(2))*(cosh(k*(0+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-AvL0 =(((-9.81*k*H)/(2))*(sinh(k*(0+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-
-for i= 1:zd
-    %Calcula a velocidade horizontal 
-    uh(i)=(((9.81*k*H)/(2*w))*(cosh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-    %Calcula a velocidade vertical
-    uv(i)=(((9.81*k*H)/(2*w))*(sinh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-    %Calcula a aceleração vertical 
-    Av(i)=(((-9.81*k*H)/(2))*(sinh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-    %Calcula a aceleração horizontal
-    Ah(i)=(((9.81*k*H)/(2))*(cosh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-    
-    z = z - 1; 
-    
-    PERC1(i) = 100*(uv(i)/uvL0);
-    PERC2(i) = 100*(uh(i)/uhL0);  
-    PERC3(i) = 100*(Av(i)/AvL0);
-    PERC4(i) = 100*(Ah(i)/AhL0);
-    
-    vetori(i)= i;
-    vetori(i)= z;
-    
-end
-
-
-%Obtendo dados do usuário - CheckBox e RadioButton
-VVertical = get(handles.VelVertical,'Value');
-VHorizontal = get(handles.VelHorizontal,'Value');
-AVertical = get(handles.AcelVertical,'Value');
-AHorizontal = get(handles.AcelHorizontal,'Value');
-
-cla(handles.axes1,'reset');
-cla(handles.axes5,'reset');
-hold(handles.axes1,'on');
-hold(handles.axes5,'on');
-
-flag1 = 0;
-flag2 = 0;
-%axis (inf);
-j = 1;
-if VVertical == 1 
-    plot1(j) = plot(uv,vetori,'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Velocidade Vertical');
-    grid (handles.axes1,'on');    
-    plot2(j)= plot(PERC1,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Vel. Vertical');
-    grid (handles.axes5,'on');    
-    j = j+1;
-    
-    flag1 = 1;
-    eixox1 = 'Velocidade (m/s)'; 
-end
-
-if VHorizontal == 1
-    plot1(j)= plot(uh,vetori,'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Velocidade Horizontal');
-    grid (handles.axes1,'on');    
-    plot2(j)=plot(PERC2,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Vel. Horizontal'); 
-    grid (handles.axes5,'on');    
-    j=j+1;
-    
-    if (flag1 == 0)
-        eixox1 = 'Velocidade (m/s)';
-        flag1 = 1;
-    end    
-end
-
-if AVertical == 1
-    plot1(j)= plot(Av,vetori,'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Aceleração Vertical');
-    grid (handles.axes1,'on');    
-    plot2(j)=plot(PERC3,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Acel. Vertical'); 
-    grid (handles.axes5,'on');    
-    j = j+1;
-    
-    flag2 = 1;
-    if (flag1 == 1)
-        eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
-    else
-        eixox1 = 'Aceleração (m/s^2)';
-    end    
-end
-if AHorizontal == 1
-    plot1(j)= plot(Ah,vetori, 'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Aceleração Vertical');
-    grid (handles.axes1,'on');    
-    plot2(j)=plot(PERC4,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Acel. Horizontal'); 
-    grid (handles.axes5,'on');    
-    j = j+1;
-    
-    if (flag2 == 0)
-        if (flag1 == 1)
-            eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
-        else
-            eixox1 = 'Aceleração (m/s^2)';
-        end 
-    end     
-end
-legend1 = legend(handles.axes1,'show');
-legend2 = legend(handles.axes5,'show');
-if ((flag1 == 1) || (flag2 == 1))
-    xlabel(handles.axes1,eixox1);
-    ylabel(handles.axes1,'Profundidade (m)');
-    xlabel(handles.axes5,'Percentual relativo (%)');
-    ylabel(handles.axes5,'Profundidade (m)');
-end
-
-% pegar = get(handles.uibuttongroup4,'SelectObject')
-
-% Hint: get(hObject,'Value') returns toggle state of AcelVertical
+graficos(handles);
 
 
 % --- Executes on button press in AcelHorizontal.
@@ -985,184 +389,8 @@ function AcelHorizontal_Callback(hObject, eventdata, handles)
 % hObject    handle to AcelHorizontal (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-%Recebendo dados do usuário
 
-H = str2double(get(handles.H,'String'));
-T = str2double(get(handles.T,'String'));
-d = str2double(get(handles.d,'String'));
-x = str2double(get(handles.x,'String'));
-t = str2double(get(handles.tempo,'String'));
-
-%H=1; T=10; d=50; x=1; t=0;
-
-%Cálculo de comprimento de onda
-g =9.81;
-W = (4*pi^2*d)/(g*(T^2));
-f =1 + (0.666*W + 0.445*W -0.105*W + 0.272*W);
-L = (T*sqrt(g*d)*sqrt(f/(1+W*f)));
-k = (2*pi/L);
-w = (2*pi/T);
-c = w/k;
-zd = d;
-
-%Mostrando nas caixas
-% set(handles.cxL, 'String', num2str(L));
-% set(handles.text10, 'String', num2str(k));
-% set(handles.text11, 'String', num2str(c));
-% set(handles.text12, 'String', num2str(w));
-
-set(handles.cxL, 'String', sprintf('%.2f',L));
-set(handles.text10, 'String', sprintf('%.2f',k));
-set(handles.text11, 'String', sprintf('%.2f',c));
-set(handles.text12, 'String', sprintf('%.2f',w));
-
-
-%RADIO BUTTON
-z =0;
-RB1 = get(handles.radiobutton10,'Value');
-RB2 = get(handles.radiobutton11,'Value');
-RB3 = get(handles.radiobutton12,'Value');
-if RB1 == 1 %até L/2
-    if(L/2>d)
-        zd = d;
-        
-    else
-        zd = L/2;
-    end 
-end
-if RB2 == 1
-    if(L>d)
-        zd = d;
-        
-    else
-        zd = L;
-    end 
-end
-if RB3 == 1
-        zd = d;
-end
-
-%VELOCIDADE E ACELERAÇÃO NA PROFUNDIDADE ZERO
-uvL0 =(((9.81*k*H)/(2*w))*(sinh(k*(0+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-uhL0 = (((9.81*k*H)/(2*w))*(cosh(k*(0+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-AhL0 =(((9.81*k*H)/(2))*(cosh(k*(0+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-AvL0 =(((-9.81*k*H)/(2))*(sinh(k*(0+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-
-for i= 1:zd
-    %Calcula a velocidade horizontal 
-    uh(i)=(((9.81*k*H)/(2*w))*(cosh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-    %Calcula a velocidade vertical
-    uv(i)=(((9.81*k*H)/(2*w))*(sinh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-    %Calcula a aceleração vertical 
-    Av(i)=(((-9.81*k*H)/(2))*(sinh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-    %Calcula a aceleração horizontal
-    Ah(i)=(((9.81*k*H)/(2))*(cosh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-    
-    z = z - 1; 
-    
-    PERC1(i) = 100*(uv(i)/uvL0);
-    PERC2(i) = 100*(uh(i)/uhL0);  
-    PERC3(i) = 100*(Av(i)/AvL0);
-    PERC4(i) = 100*(Ah(i)/AhL0);
-    
-    vetori(i)= i;
-    vetori(i)= z;
-    
-end
-
-
-%Obtendo dados do usuário - CheckBox e RadioButton
-VVertical = get(handles.VelVertical,'Value');
-VHorizontal = get(handles.VelHorizontal,'Value');
-AVertical = get(handles.AcelVertical,'Value');
-AHorizontal = get(handles.AcelHorizontal,'Value');
-
-
-cla(handles.axes1,'reset');
-cla(handles.axes5,'reset');
-hold(handles.axes1,'on');
-hold(handles.axes5,'on');
-flag1 = 0;
-flag2 = 0;
-
-%axis (inf);
-j = 1;
-if VVertical == 1 
-    plot1(j) = plot(uv,vetori,'Parent',handles.axes1 );
-    set(plot1(j),'DisplayName','Velocidade Vertical');
-    grid (handles.axes1,'on');    
-    plot2(j)= plot(PERC1,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Vel. Vertical');
-    grid (handles.axes5,'on');    
-    j = j+1;
-    
-    flag1 = 1;
-    eixox1 = 'Velocidade (m/s)';     
-end
-%hold on
-if VHorizontal == 1
-    plot1(j)= plot(uh,vetori,'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Velocidade Horizontal');
-    grid (handles.axes1,'on');    
-    plot2(j)=plot(PERC2,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Vel. Horizontal'); 
-    grid (handles.axes5,'on');    
-    j=j+1;
-    
-    if (flag1 == 0)
-        eixox1 = 'Velocidade (m/s)';
-        flag1 = 1;
-    end     
-end
-
-if AVertical == 1
-    plot1(j)= plot(Av,vetori,'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Aceleração Vertical');
-    grid (handles.axes1,'on');    
-    plot2(j)=plot(PERC3,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Acel. Vertical'); 
-    grid (handles.axes5,'on');
-    j = j+1;
-    
-    flag2 = 1;
-    if (flag1 == 1)
-        eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
-    else
-        eixox1 = 'Aceleração (m/s^2)';
-    end     
-end
-
-if AHorizontal == 1
-    plot1(j)= plot(Ah,vetori, 'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Aceleração Vertical');
-    grid (handles.axes1,'on');    
-    plot2(j)=plot(PERC4,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Acel. Horizontal');
-    grid (handles.axes5,'on');    
-    j = j+1;
-    
-    if (flag2 == 0)
-        if (flag1 == 1)
-            eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
-        else
-            eixox1 = 'Aceleração (m/s^2)';
-        end 
-    end     
-end
-
-legend1 = legend(handles.axes1,'show');
-legend2 = legend(handles.axes5,'show');
-if ((flag1 == 1) || (flag2 == 1))
-    xlabel(handles.axes1,eixox1);
-    ylabel(handles.axes1,'Profundidade (m)');
-    xlabel(handles.axes5,'Percentual relativo (%)');
-    ylabel(handles.axes5,'Profundidade (m)');
-end
-
-% pegar = get(handles.uibuttongroup4,'SelectObject')
-
-% Hint: get(hObject,'Value') returns toggle state of AcelHorizontal
-
+graficos(handles);
 
 % --- Executes on button press in pushbutton3.
 function pushbutton3_Callback(hObject, eventdata, handles)
@@ -1404,172 +632,8 @@ function radiobutton10_Callback(hObject, eventdata, handles)
 % hObject    handle to radiobutton10 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-%Recebendo dados do usuário
-H = str2double(get(handles.H,'String'));
-T = str2double(get(handles.T,'String'));
-d = str2double(get(handles.d,'String'));
-x = str2double(get(handles.x,'String'));
-t = str2double(get(handles.tempo,'String'));
 
-%H=1; T=10; d=50; x=1; t=0;
-
-%Cálculo de comprimento de onda
-g =9.81;
-W = (4*pi^2*d)/(g*(T^2));
-f =1 + (0.666*W + 0.445*W -0.105*W + 0.272*W);
-L = (T*sqrt(g*d)*sqrt(f/(1+W*f)));
-k = (2*pi/L);
-w = (2*pi/T);
-c = w/k;
-zd = d;
-
-
-
-%RADIO BUTTON
-z =0;
-RB1 = get(handles.radiobutton10,'Value');
-RB2 = get(handles.radiobutton11,'Value');
-RB3 = get(handles.radiobutton12,'Value');
-if RB1 == 1 %até L/2
-    if(L/2>d)
-        zd = d;
-        
-    else
-        zd = L/2;
-    end 
-end
-if RB2 == 1
-    if(L>d)
-        zd = d;
-        
-    else
-        zd = L;
-    end 
-end
-if RB3 == 1
-        zd = d;
-end
-
-    %VELOCIDADE E ACELERAÇÃO NA PROFUNDIDADE ZERO
-uvL0 =(((9.81*k*H)/(2*w))*(sinh(k*(0+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-uhL0 = (((9.81*k*H)/(2*w))*(cosh(k*(0+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-AhL0 =(((9.81*k*H)/(2))*(cosh(k*(0+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-AvL0 =(((-9.81*k*H)/(2))*(sinh(k*(0+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-
-for i= 1:zd
-    %Calcula a velocidade horizontal 
-    uh(i)=(((9.81*k*H)/(2*w))*(cosh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-    %Calcula a velocidade vertical
-    uv(i)=(((9.81*k*H)/(2*w))*(sinh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-    %Calcula a aceleração vertical 
-    Av(i)=(((-9.81*k*H)/(2))*(sinh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-    %Calcula a aceleração horizontal
-    Ah(i)=(((9.81*k*H)/(2))*(cosh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-    
-    z = z - 1; 
-    
-    PERC1(i) = 100*(uv(i)/uvL0);
-    PERC2(i) = 100*(uh(i)/uhL0);  
-    PERC3(i) = 100*(Av(i)/AvL0);
-    PERC4(i) = 100*(Ah(i)/AhL0);
-    
-    vetori(i)= i;
-    vetori(i)= z;
-    
-end
-
-
-%Obtendo dados do usuário - CheckBox e RadioButton
-VVertical = get(handles.VelVertical,'Value');
-VHorizontal = get(handles.VelHorizontal,'Value');
-AVertical = get(handles.AcelVertical,'Value');
-AHorizontal = get(handles.AcelHorizontal,'Value');
-
-cla(handles.axes1,'reset');
-cla(handles.axes5,'reset');
-hold(handles.axes1,'on');
-hold(handles.axes5,'on');
-flag1 = 0;
-flag2 = 0;
-
-%axis (inf);
-j = 1;
-if VVertical == 1 
-    plot1(j) = plot(uv,vetori,'Parent',handles.axes1 );
-    set(plot1(j),'DisplayName','Velocidade Vertical');
-    grid (handles.axes1,'on');    
-    plot2(j)= plot(PERC1,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Vel. Vertical');
-    grid (handles.axes5,'on');    
-    j = j+1;
-    
-    flag1 = 1;
-    eixox1 = 'Velocidade (m/s)';     
-end
-%hold on
-if VHorizontal == 1
-    plot1(j)= plot(uh,vetori,'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Velocidade Horizontal');
-    grid (handles.axes1,'on');    
-    plot2(j)=plot(PERC2,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Vel. Horizontal'); 
-    grid (handles.axes5,'on');    
-    j=j+1;
-    
-    if (flag1 == 0)
-        eixox1 = 'Velocidade (m/s)';
-        flag1 = 1;
-    end     
-end
-
-if AVertical == 1
-    plot1(j)= plot(Av,vetori,'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Aceleração Vertical');
-    grid (handles.axes1,'on');    
-    plot2(j)=plot(PERC3,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Acel. Vertical'); 
-    grid (handles.axes5,'on');
-    j = j+1;
-    
-    flag2 = 1;
-    if (flag1 == 1)
-        eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
-    else
-        eixox1 = 'Aceleração (m/s^2)';
-    end     
-end
-
-if AHorizontal == 1
-    plot1(j)= plot(Ah,vetori, 'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Aceleração Vertical');
-    grid (handles.axes1,'on');    
-    plot2(j)=plot(PERC4,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Acel. Horizontal');
-    grid (handles.axes5,'on');    
-    j = j+1;
-    
-    if (flag2 == 0)
-        if (flag1 == 1)
-            eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
-        else
-            eixox1 = 'Aceleração (m/s^2)';
-        end 
-    end     
-end
-
-legend1 = legend(handles.axes1,'show');
-legend2 = legend(handles.axes5,'show');
-if ((flag1 == 1) || (flag2 == 1))
-    xlabel(handles.axes1,eixox1);
-    ylabel(handles.axes1,'Profundidade (m)');
-    xlabel(handles.axes5,'Percentual relativo (%)');
-    ylabel(handles.axes5,'Profundidade (m)');
-end
-
-% pegar = get(handles.uibuttongroup4,'SelectObject')
-
-% Hint: get(hObject,'Value') returns toggle state of radiobutton10
-
+graficos(handles);
 
 % --------------------------------------------------------------------
 function opcoes_Callback(hObject, eventdata, handles)
@@ -1865,169 +929,8 @@ function radiobutton11_Callback(hObject, eventdata, handles)
 % hObject    handle to radiobutton11 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-%Recebendo dados do usuário
-H = str2double(get(handles.H,'String'));
-T = str2double(get(handles.T,'String'));
-d = str2double(get(handles.d,'String'));
-x = str2double(get(handles.x,'String'));
-t = str2double(get(handles.tempo,'String'));
 
-%H=1; T=10; d=50; x=1; t=0;
-
-%Cálculo de comprimento de onda
-g =9.81;
-W = (4*pi^2*d)/(g*(T^2));
-f =1 + (0.666*W + 0.445*W -0.105*W + 0.272*W);
-L = (T*sqrt(g*d)*sqrt(f/(1+W*f)));
-k = (2*pi/L);
-w = (2*pi/T);
-c = w/k;
-zd = d;
-
-
-
-%RADIO BUTTON
-z =0;
-RB1 = get(handles.radiobutton10,'Value');
-RB2 = get(handles.radiobutton11,'Value');
-RB3 = get(handles.radiobutton12,'Value');
-if RB1 == 1 %até L/2
-    if(L/2>d)
-        zd = d;
-        
-    else
-        zd = L/2;
-    end 
-end
-if RB2 == 1
-    if(L>d)
-        zd = d;
-        
-    else
-        zd = L;
-    end 
-end
-if RB3 == 1
-        zd = d;
-end
-    %VELOCIDADE E ACELERAÇÃO NA PROFUNDIDADE ZERO
-uvL0 =(((9.81*k*H)/(2*w))*(sinh(k*(0+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-uhL0 = (((9.81*k*H)/(2*w))*(cosh(k*(0+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-AhL0 =(((9.81*k*H)/(2))*(cosh(k*(0+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-AvL0 =(((-9.81*k*H)/(2))*(sinh(k*(0+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-
-for i= 1:zd
-    %Calcula a velocidade horizontal 
-    uh(i)=(((9.81*k*H)/(2*w))*(cosh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-    %Calcula a velocidade vertical
-    uv(i)=(((9.81*k*H)/(2*w))*(sinh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-    %Calcula a aceleração vertical 
-    Av(i)=(((-9.81*k*H)/(2))*(sinh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-    %Calcula a aceleração horizontal
-    Ah(i)=(((9.81*k*H)/(2))*(cosh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-    
-    z = z - 1; 
-    PERC1(i) = 100*(uv(i)/uvL0);
-    PERC2(i) = 100*(uh(i)/uhL0);  
-    PERC3(i) = 100*(Av(i)/AvL0);
-    PERC4(i) = 100*(Ah(i)/AhL0);
-    
-    vetori(i)= i;
-    vetori(i)= z;
-    
-end
-
-
-%Obtendo dados do usuário - CheckBox e RadioButton
-VVertical = get(handles.VelVertical,'Value');
-VHorizontal = get(handles.VelHorizontal,'Value');
-AVertical = get(handles.AcelVertical,'Value');
-AHorizontal = get(handles.AcelHorizontal,'Value');
-
-
-cla(handles.axes1,'reset');
-cla(handles.axes5,'reset');
-hold(handles.axes1,'on');
-hold(handles.axes5,'on');
-flag1 = 0;
-flag2 = 0;
-
-%axis (inf);
-j = 1;
-if VVertical == 1 
-    plot1(j) = plot(uv,vetori,'Parent',handles.axes1 );
-    set(plot1(j),'DisplayName','Velocidade Vertical');
-    grid (handles.axes1,'on');    
-    plot2(j)= plot(PERC1,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Vel. Vertical');
-    grid (handles.axes5,'on');    
-    j = j+1;
-    
-    flag1 = 1;
-    eixox1 = 'Velocidade (m/s)';     
-end
-%hold on
-if VHorizontal == 1
-    plot1(j)= plot(uh,vetori,'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Velocidade Horizontal');
-    grid (handles.axes1,'on');    
-    plot2(j)=plot(PERC2,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Vel. Horizontal'); 
-    grid (handles.axes5,'on');    
-    j=j+1;
-    
-    if (flag1 == 0)
-        eixox1 = 'Velocidade (m/s)';
-        flag1 = 1;
-    end     
-end
-
-if AVertical == 1
-    plot1(j)= plot(Av,vetori,'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Aceleração Vertical');
-    grid (handles.axes1,'on');    
-    plot2(j)=plot(PERC3,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Acel. Vertical'); 
-    grid (handles.axes5,'on');
-    j = j+1;
-    
-    flag2 = 1;
-    if (flag1 == 1)
-        eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
-    else
-        eixox1 = 'Aceleração (m/s^2)';
-    end     
-end
-
-if AHorizontal == 1
-    plot1(j)= plot(Ah,vetori, 'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Aceleração Vertical');
-    grid (handles.axes1,'on');    
-    plot2(j)=plot(PERC4,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Acel. Horizontal');
-    grid (handles.axes5,'on');    
-    j = j+1;
-    
-    if (flag2 == 0)
-        if (flag1 == 1)
-            eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
-        else
-            eixox1 = 'Aceleração (m/s^2)';
-        end 
-    end     
-end
-
-legend1 = legend(handles.axes1,'show');
-legend2 = legend(handles.axes5,'show');
-if ((flag1 == 1) || (flag2 == 1))
-    xlabel(handles.axes1,eixox1);
-    ylabel(handles.axes1,'Profundidade (m)');
-    xlabel(handles.axes5,'Percentual relativo (%)');
-    ylabel(handles.axes5,'Profundidade (m)');
-end
-
-% pegar = get(handles.uibuttongroup4,'SelectObject')
-% Hint: get(hObject,'Value') returns toggle state of radiobutton11
+graficos(handles);
 
 
 % --- Executes on button press in radiobutton12.
@@ -2035,174 +938,7 @@ function radiobutton12_Callback(hObject, eventdata, handles)
 % hObject    handle to radiobutton12 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-%Recebendo dados do usuário
-H = str2double(get(handles.H,'String'));
-T = str2double(get(handles.T,'String'));
-d = str2double(get(handles.d,'String'));
-x = str2double(get(handles.x,'String'));
-t = str2double(get(handles.tempo,'String'));
-
-%H=1; T=10; d=50; x=1; t=0;
-
-%Cálculo de comprimento de onda
-g =9.81;
-W = (4*pi^2*d)/(g*(T^2));
-f =1 + (0.666*W + 0.445*W -0.105*W + 0.272*W);
-L = (T*sqrt(g*d)*sqrt(f/(1+W*f)));
-k = (2*pi/L);
-w = (2*pi/T);
-c = w/k;
-zd = d;
-
-
-
-%RADIO BUTTON
-z =0;
-RB1 = get(handles.radiobutton10,'Value');
-RB2 = get(handles.radiobutton11,'Value');
-RB3 = get(handles.radiobutton12,'Value');
-if RB1 == 1 %até L/2
-    if(L/2>d)
-        zd = d;
-        
-    else
-        zd = L/2;
-    end 
-end
-if RB2 == 1
-    if(L>d)
-        zd = d;
-        
-    else
-        zd = L;
-    end 
-end
-if RB3 == 1
-        zd = d;
-end
-
-    %VELOCIDADE E ACELERAÇÃO NA PROFUNDIDADE ZERO
-uvL0 =(((9.81*k*H)/(2*w))*(sinh(k*(0+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-uhL0 = (((9.81*k*H)/(2*w))*(cosh(k*(0+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-AhL0 =(((9.81*k*H)/(2))*(cosh(k*(0+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-AvL0 =(((-9.81*k*H)/(2))*(sinh(k*(0+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-
-for i= 1:zd
-    %Calcula a velocidade horizontal 
-    uh(i)=(((9.81*k*H)/(2*w))*(cosh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-    %Calcula a velocidade vertical
-    uv(i)=(((9.81*k*H)/(2*w))*(sinh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-    %Calcula a aceleração vertical 
-    Av(i)=(((-9.81*k*H)/(2))*(sinh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
-    %Calcula a aceleração horizontal
-    Ah(i)=(((9.81*k*H)/(2))*(cosh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t)));
-    
-    z = z - 1; 
-    
-    PERC1(i) = 100*(uv(i)/uvL0);
-    PERC2(i) = 100*(uh(i)/uhL0);  
-    PERC3(i) = 100*(Av(i)/AvL0);
-    PERC4(i) = 100*(Ah(i)/AhL0);
-    
-    vetori(i)= i;
-    vetori(i)= z;
-    
-end
-
-
-%Obtendo dados do usuário - CheckBox e RadioButton
-VVertical = get(handles.VelVertical,'Value');
-VHorizontal = get(handles.VelHorizontal,'Value');
-AVertical = get(handles.AcelVertical,'Value');
-AHorizontal = get(handles.AcelHorizontal,'Value');
-
-cla(handles.axes1,'reset');
-cla(handles.axes5,'reset');
-hold(handles.axes1,'on');
-hold(handles.axes5,'on');
-flag1 = 0;
-flag2 = 0;
-
-%axis (inf);
-j = 1;
-if VVertical == 1 
-    plot1(j) = plot(uv,vetori,'Parent',handles.axes1 );
-    set(plot1(j),'DisplayName','Velocidade Vertical');
-    grid (handles.axes1,'on');    
-    plot2(j)= plot(PERC1,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Vel. Vertical');
-    grid (handles.axes5,'on');    
-    j = j+1;
-    
-    flag1 = 1;
-    eixox1 = 'Velocidade (m/s)';     
-end
-%hold on
-if VHorizontal == 1
-    plot1(j)= plot(uh,vetori,'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Velocidade Horizontal');
-    grid (handles.axes1,'on');    
-    plot2(j)=plot(PERC2,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Vel. Horizontal'); 
-    grid (handles.axes5,'on');    
-    j=j+1;
-    
-    if (flag1 == 0)
-        eixox1 = 'Velocidade (m/s)';
-        flag1 = 1;
-    end     
-end
-
-if AVertical == 1
-    plot1(j)= plot(Av,vetori,'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Aceleração Vertical');
-    grid (handles.axes1,'on');    
-    plot2(j)=plot(PERC3,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Acel. Vertical'); 
-    grid (handles.axes5,'on');
-    j = j+1;
-    
-    flag2 = 1;
-    if (flag1 == 1)
-        eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
-    else
-        eixox1 = 'Aceleração (m/s^2)';
-    end     
-end
-
-if AHorizontal == 1
-    plot1(j)= plot(Ah,vetori, 'Parent',handles.axes1);
-    set(plot1(j),'DisplayName','Aceleração Vertical');
-    grid (handles.axes1,'on');    
-    plot2(j)=plot(PERC4,vetori,'Parent',handles.axes5);
-    set(plot2(j),'DisplayName',' Percentual Acel. Horizontal');
-    grid (handles.axes5,'on');    
-    j = j+1;
-    
-    if (flag2 == 0)
-        if (flag1 == 1)
-            eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
-        else
-            eixox1 = 'Aceleração (m/s^2)';
-        end 
-    end     
-end
-
-legend1 = legend(handles.axes1,'show');
-legend2 = legend(handles.axes5,'show');
-if ((flag1 == 1) || (flag2 == 1))
-    xlabel(handles.axes1,eixox1);
-    ylabel(handles.axes1,'Profundidade (m)');
-    xlabel(handles.axes5,'Percentual relativo (%)');
-    ylabel(handles.axes5,'Profundidade (m)');
-end
-
-% pegar = get(handles.uibuttongroup4,'SelectObject')
-
-
-% pegar = get(handles.uibuttongroup4,'SelectObject')
-% Hint: get(hObject,'Value') returns toggle state of radiobutton12
-
+graficos(handles);
 
 % --- Executes on button press in pushbutton16.
 function pushbutton16_Callback(hObject, eventdata, handles)
@@ -2253,7 +989,7 @@ if EXPORT1 == 1
     save('dados_velocidadevertical.txt','ZUV','-ascii')
 end
 
-zd = d;
+
 zs=0;
 if EXPORT2 == 1 
     for i= 1:zd
@@ -2325,3 +1061,174 @@ function text39_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to VelHorizontal (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
+
+function graficos (handles)
+
+H = str2double(get(handles.H,'String'));
+T = str2double(get(handles.T,'String'));
+d = str2double(get(handles.d,'String'));
+x = str2double(get(handles.x,'String'));
+t = str2double(get(handles.tempo,'String'));
+
+%H=1; T=10; d=50; x=1; t=0;
+
+%Cálculo de comprimento de onda
+g =9.81;
+W = (4*pi^2*d)/(g*(T^2));
+f =1 + (0.666*W + 0.445*W -0.105*W + 0.272*W);
+L = (T*sqrt(g*d)*sqrt(f/(1+W*f)));
+k = (2*pi/L);
+w = (2*pi/T);
+c = w/k;
+zd = d;
+
+set(handles.cxL, 'String', sprintf('%.2f',L));
+set(handles.text10, 'String', sprintf('%.2f',k));
+set(handles.text11, 'String', sprintf('%.2f',c));
+set(handles.text12, 'String', sprintf('%.2f',w));
+
+%RADIO BUTTON
+z =0;
+RB1 = get(handles.radiobutton10,'Value');
+RB2 = get(handles.radiobutton11,'Value');
+RB3 = get(handles.radiobutton12,'Value');
+if RB1 == 1 %até L/2
+    if(L/2>d)
+        zd = d;
+        
+    else
+        zd = L/2;
+    end 
+end
+if RB2 == 1 %até L
+    if(L>d)
+        zd = d;
+        
+    else
+        zd = L;
+    end 
+end
+if RB3 == 1 %até d
+        zd = d;
+end
+
+%VELOCIDADE E ACELERAÇÃO NA PROFUNDIDADE ZERO
+uvL0 =(((9.81*k*H)/(2*w))*(sinh(k*(0+zd))/cosh(k*zd))*sin(k*(x-c*t)));
+uhL0 = (((9.81*k*H)/(2*w))*(cosh(k*(0+zd))/cosh(k*zd))*cos(k*(x-c*t)));
+AhL0 =(((9.81*k*H)/(2))*(cosh(k*(0+zd))/cosh(k*zd))*sin(k*(x-c*t)));
+AvL0 =(((-9.81*k*H)/(2))*(sinh(k*(0+zd))/cosh(k*zd))*cos(k*(x-c*t)));
+
+for i= 1:zd
+    
+    %Calcula a velocidade horizontal 
+    uh(i)=(((9.81*k*H)/(2*w))*(cosh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
+    %Calcula a velocidade vertical
+    uv(i)=(((9.81*k*H)/(2*w))*(sinh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t)));
+    %Calcula a aceleração vertical 
+    Av(i)=(((-9.81*k*H)/(2))*(sinh(k*(z+zd))/cosh(k*zd))*cos(k*(x-c*t)));
+    %Calcula a aceleração horizontal
+    Ah(i)=(((9.81*k*H)/(2))*(cosh(k*(z+zd))/cosh(k*zd))*sin(k*(x-c*t)));
+    
+    z = z - 1; 
+    
+    PERC1(i) = 100*(uv(i)/uvL0);
+    PERC2(i) = 100*(uh(i)/uhL0);  
+    PERC3(i) = 100*(Av(i)/AvL0);
+    PERC4(i) = 100*(Ah(i)/AhL0);
+    
+    vetori(i)= i;
+    vetori(i)= z;
+    
+    
+end
+
+
+%Obtendo dados do usuário - CheckBox e RadioButton
+VVertical = get(handles.VelVertical,'Value');
+VHorizontal = get(handles.VelHorizontal,'Value');
+AVertical = get(handles.AcelVertical,'Value');
+AHorizontal = get(handles.AcelHorizontal,'Value');
+
+%GRAFICO PERCENTUAL 
+cla(handles.axes1,'reset');
+cla(handles.axes5,'reset');
+hold(handles.axes1,'on');
+hold(handles.axes5,'on');
+
+flag1 = 0;
+flag2 = 0;
+
+%axis (inf);
+j = 1;
+if VVertical == 1 
+    plot1(j) = plot(uv,vetori,'Parent',handles.axes1);
+    set(plot1(j),'DisplayName','Velocidade Vertical');
+    grid (handles.axes1,'on');
+    plot2(j)= plot(PERC1,vetori,'Parent',handles.axes5);
+    set(plot2(j),'DisplayName',' Percentual Vel. Vertical'); 
+    grid (handles.axes5,'on');
+    j = j+1;
+    
+    flag1 = 1;
+    eixox1 = 'Velocidade (m/s)';    
+end
+
+if VHorizontal == 1
+    plot1(j)= plot(uh,vetori,'Parent',handles.axes1);
+    set(plot1(j),'DisplayName','Velocidade Horizontal');
+    grid (handles.axes1,'on');
+    plot2(j)=plot(PERC2,vetori,'Parent',handles.axes5);
+    set(plot2(j),'DisplayName',' Percentual Vel. Horizontal'); 
+    grid (handles.axes5,'on');
+    j=j+1;
+    
+    if (flag1 == 0)
+        eixox1 = 'Velocidade (m/s)';
+        flag1 = 1;
+    end
+end
+
+if AVertical == 1
+    plot1(j)= plot(Av,vetori,'Parent',handles.axes1);
+    set(plot1(j),'DisplayName','Aceleração Vertical');
+    grid (handles.axes1,'on');
+    plot2(j)=plot(PERC3,vetori,'Parent',handles.axes5);
+    set(plot2(j),'DisplayName',' Percentual Acel. Vertical'); 
+    grid (handles.axes5,'on');
+    j = j+1;
+    
+    flag2 = 1;
+    if (flag1 == 1)
+        eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
+    else
+        eixox1 = 'Aceleração (m/s^2)';
+    end
+end
+
+if AHorizontal == 1
+    plot1(j)= plot(Ah,vetori, 'Parent',handles.axes1);
+    set(plot1(j),'DisplayName','Aceleração Vertical');
+    grid (handles.axes1,'on');
+    plot2(j)=plot(PERC4,vetori,'Parent',handles.axes5);
+    set(plot2(j),'DisplayName',' Percentual Acel. Horizontal'); 
+    grid (handles.axes5,'on');
+    j = j+1;
+    
+    if (flag2 == 0)
+        if (flag1 == 1)
+            eixox1 = cat(2,eixox1,', Aceleração (m/s^2)');
+        else
+            eixox1 = 'Aceleração (m/s^2)';
+        end 
+    end
+end
+
+legend1 = legend(handles.axes1,'show');
+legend2 = legend(handles.axes5,'show');
+
+if ((flag1 == 1) || (flag2 == 1))
+    xlabel(handles.axes1,eixox1);
+    ylabel(handles.axes1,'Profundidade (m)');
+    xlabel(handles.axes5,'Percentual relativo (%)');
+    ylabel(handles.axes5,'Profundidade (m)');
+end
