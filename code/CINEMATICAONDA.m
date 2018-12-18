@@ -198,8 +198,8 @@ PAh = 100*(AhL2/AhL0);
 %MOSTRANDO O PERCENTUAL NAS CAIXAS
 set(handles.text39, 'String', sprintf('%.2f',PVh));
 set(handles.text40, 'String', sprintf('%.2f',PVv));
-set(handles.text41, 'String', sprintf('%.2f',PAv));
-set(handles.text42, 'String', sprintf('%.2f',PAh));
+set(handles.text41, 'String', sprintf('%.2f',PAh));
+set(handles.text42, 'String', sprintf('%.2f',PAv));
 
 %PREVENDO AS DIVISÕES POR ZERO NA PORCENTAGEM
 if (isnan(PVv))
