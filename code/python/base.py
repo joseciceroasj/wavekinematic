@@ -139,22 +139,25 @@ class Tela:
                             i, g, k, H, w, 0, d, c, x)
                         ac_airy_vertical_t[i] = wave1.airy_ac_vertical(
                             i, g, k, H, w, 0, d, c, x)
+                    plt.clf()
+                    plt.title('Teoria de Airy')
                     if vel_horizontal == True:
-                        plt.plot(t1, vel_airy_horizontal_t)
+                        plt.plot(t1, vel_airy_horizontal_t, 'b', label='Velocidade Horizontal')
                     else:
                         pass
                     if vel_vertical == True:
-                        plt.plot(t1, vel_airy_vertical_t)
+                        plt.plot(t1, vel_airy_vertical_t, 'g', label='Velocidade Vertical')
                     else:
                         pass
                     if ac_horizontal == True:
-                        plt.plot(t1, ac_airy_horizontal_t)
+                        plt.plot(t1, ac_airy_horizontal_t, 'r', label='Aceleração Horizontal')
                     else:
                         pass
                     if ac_vertical == True:
-                        plt.plot(t1, ac_airy_vertical_t)
+                        plt.plot(t1, ac_airy_vertical_t, 'k', label='Aceleração Vertical')
                     else:
                         pass
+                    plt.legend()
                     plt.show()
                 else:
                     # Plotando ao longo da profundidade
@@ -173,24 +176,27 @@ class Tela:
                             t, g, k, H, w, -i, d, c, x)
                         ac_airy_vertical_z[i] = wave1.airy_ac_vertical(
                             t, g, k, H, w, -i, d, c, x)
+                    plt.clf()
+                    plt.title('Teoria de Airy')
                     if vel_horizontal == True:
-                        plt.plot(z1, vel_airy_horizontal_z)
+                        plt.plot(z1, vel_airy_horizontal_z, 'b', label='Velocidade Horizontal')
                     else:
                         pass
                     if vel_vertical == True:
-                        plt.plot(z1, vel_airy_vertical_z)
+                        plt.plot(z1, vel_airy_vertical_z, 'g', label='Velocidade Vertical')
                     else:
                         pass
                     if ac_horizontal == True:
-                        plt.plot(z1, ac_airy_horizontal_z)
+                        plt.plot(z1, ac_airy_horizontal_z, 'r', label='Aceleração Horizontal')
                     else:
                         pass
                     if ac_vertical == True:
-                        plt.plot(z1, ac_airy_vertical_z)
+                        plt.plot(z1, ac_airy_vertical_z, 'k', label='Aceleração Vertical')
                     else:
                         pass
+                    plt.legend()
                     plt.show()
-            else:
+            elif airy == False and stokes == True:
                 # Calculo percentual das velocidades e acelerações
                 # Nomear variaveis de acordo com cada função criada, após isso criar as variáveis percentuais
                 wave2 = Stokes()
@@ -232,22 +238,25 @@ class Tela:
                             i, g, k, H, T, w, 0, d, c, L, x)
                         ac_stokes_vertical_t[i] = wave2.stokes_ac_vertical(
                             i, g, k, H, T, w, 0, d, c, L, x)
+                    plt.clf()
+                    plt.title('Teria de Stokes')
                     if vel_horizontal == True:
-                        plt.plot(t1, vel_stokes_horizontal_t)
+                        plt.plot(t1, vel_stokes_horizontal_t, 'b', label='Velocidade Horizontal')
                     else:
                         pass
                     if vel_vertical == True:
-                        plt.plot(t1, vel_stokes_vertical_t)
+                        plt.plot(t1, vel_stokes_vertical_t, 'g', label='Velocidade Vertical')
                     else:
                         pass
                     if ac_horizontal == True:
-                        plt.plot(t1, ac_stokes_horizontal_t)
+                        plt.plot(t1, ac_stokes_horizontal_t, 'r', label='Aceleração Horizontal')
                     else:
                         pass
                     if ac_vertical == True:
-                        plt.plot(t1, ac_stokes_vertical_t)
+                        plt.plot(t1, ac_stokes_vertical_t, 'k', label='Aceleração Vertical')
                     else:
                         pass
+                    plt.legend()
                     plt.show()
                 else:
                     # Plotando ao longo da profundidade
@@ -266,22 +275,25 @@ class Tela:
                             t, g, k, H, T, w, -i, d, c, L, x)
                         ac_stokes_vertical_z[i] = wave2.stokes_ac_vertical(
                             t, g, k, H, T, w, -i, d, c, L, x)
+                    plt.clf()
+                    plt.title('Teria de Stokes')
                     if vel_horizontal == True:
-                        plt.plot(z1, vel_stokes_horizontal_z)
+                        plt.plot(z1, vel_stokes_horizontal_z, 'b', label='Velocidade Horizontal')
                     else:
                         pass
                     if vel_vertical == True:
-                        plt.plot(z1, vel_stokes_vertical_z)
+                        plt.plot(z1, vel_stokes_vertical_z, 'g', label='Velocidade Vertical')
                     else:
                         pass
                     if ac_horizontal == True:
-                        plt.plot(z1, ac_stokes_horizontal_z)
+                        plt.plot(z1, ac_stokes_horizontal_z, 'r', label='Aceleração Horizontal')
                     else:
                         pass
                     if ac_vertical == True:
-                        plt.plot(z1, ac_stokes_vertical_z)
+                        plt.plot(z1, ac_stokes_vertical_z, 'k', label='Aceleração Vertical')
                     else:
                         pass
+                    plt.legend()
                     plt.show()
 tela = Tela()
 tela.iniciar()
