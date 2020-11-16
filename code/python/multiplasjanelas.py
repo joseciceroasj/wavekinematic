@@ -56,6 +56,8 @@ class Tela:
              sg.Input(size=(15, 0), key='periodo_pico')],
             [sg.Text('Insira o valor da profundidade da água:'),
              sg.Input(size=(15, 0), key='profundidade')],
+            [sg.Text('Insira o valor da quantidade de ondas:'),
+             sg.Input(size=(15, 0), key='qtdondas', tooltip='Recomendam-se 200 ondas')],
             [sg.Text('Qual tipo de espectro de onda será analisado:')],
             [sg.Radio('Pierson-Moskowitz', 'espectro', key='pierson_moskowitz', default=True),
              sg.Radio('Jonswap', 'espectro', key='jonswap')],
@@ -409,6 +411,7 @@ class Tela:
                 H = float(values['altura'])
                 Tp = float(values['periodo_pico'])
                 d = float(values['profundidade'])
+                nOndas = int(values['qtdondas'])
                 choice_pm = values['pierson_moskowitz']
                 choice_jonswap = values['jonswap']
                 espectro = values['espectro']
@@ -500,14 +503,17 @@ class Tela:
                 if choice_pm == True and choice_jonswap == False:
                     # Gráfico do Espectro de onda x frequencia
                     pierson_moskowitz = PM()
+                    wi = 0.01
                     wf = 5*(wp)
-                    dw = np.arange(0.01, wf, 0.01)
-                    pm = np.zeros(dw.size)
-                    fi = np.zeros(dw.size)
-                    amplitude_pm = np.zeros(dw.size)
-                    k = np.zeros(dw.size)
+                    dw = (wf - wi)/nOndas
+                    w = np.arange(wi, wf, dw)
+                    #dw = np.arange(0.01, wf, 0.01)
+                    pm = np.zeros(w.size)
+                    fi = np.zeros(w.size)
+                    amplitude_pm = np.zeros(w.size)
+                    k = np.zeros(w.size)
                     j = 0
-                    for i in dw:
+                    for i in w:
                         pm[j] = pierson_moskowitz.espectro(H, wp, i)
                         fi[j] = (random.random()*(2*pi))
                         amplitude_pm[j] = pierson_moskowitz.amplitude(
@@ -529,7 +535,7 @@ class Tela:
                     j = 0
                     for l in t1:
                         nwave = 0
-                        for i in dw:
+                        for i in w:
                             pm_elevacao[j] += pierson_moskowitz.elevacao(
                                 H, i, l, k[nwave], x, fi[nwave], amplitude_pm[nwave])
                             pm_vel_horizontal[j] += pierson_moskowitz.vel_horizontal(
@@ -547,7 +553,7 @@ class Tela:
                     plt.clf()
                     plt.title('Pierson-Moskowitz')
                     if espectro == True:
-                        plt.plot(dw, pm, 'brown', label='Espectro de Onda')
+                        plt.plot(w, pm, 'brown', label='Espectro de Onda')
                     else:
                         pass
                     if elevacao == True:
